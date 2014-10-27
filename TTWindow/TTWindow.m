@@ -25,6 +25,7 @@
     
     if (!self) return nil;
     
+    // start with the default tint color
     self.titlebarTintColor = kTTWindowDefaultTitlebarTintColor;
     
     [self setupTitlebarTint];
@@ -34,13 +35,25 @@
 
 - (void)setupTitlebarTint
 {
+    // The superview of our contentView is an NSThemeFrame,
+    // it has an NSTitlebarContainerView, which contains
+    // an NSTitlebarView. The NSTitlebarView has a visual effect,
+    // so any view behind It will show through, so we
+    // insert our tinted view behind It
+    
+    // walk through the NSThemeFrame's subviews
     for (id view in [[self.contentView superview] subviews]) {
-        if ([view isKindOfClass:NSClassFromString(@"NSTitlebarContainerView")]) {
-            self.tintView = [[TTColorView alloc] initWithFrame:NSMakeRect(0, 0, NSWidth([view frame]), NSHeight([view frame]))];
-            self.tintView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
-            self.tintView.backgroundColor = self.titlebarTintColor;
-            [view addSubview:self.tintView positioned:NSWindowBelow relativeTo:[view subviews][0]];
-        }
+        // find the NSTitlebarContainerView
+        if (![view isKindOfClass:NSClassFromString(@"NSTitlebarContainerView")]) continue;
+        
+        // initialize the tinted view
+        NSRect tintedViewFrame = NSMakeRect(0, 0, NSWidth([view frame]), NSHeight([view frame]));
+        self.tintView = [[TTColorView alloc] initWithFrame:tintedViewFrame];
+        self.tintView.autoresizingMask = NSViewWidthSizable|NSViewHeightSizable;
+        self.tintView.backgroundColor = self.titlebarTintColor;
+        
+        // add the tinted view behind the first subview of the NSTitlebarContainerView
+        [view addSubview:self.tintView positioned:NSWindowBelow relativeTo:[view subviews][0]];
     }
 }
 
