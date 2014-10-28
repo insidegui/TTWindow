@@ -13,6 +13,7 @@
 
 @interface TTWindow ()
 
+@property (nonatomic, readonly) NSVisualEffectView *applesTitlebarView;
 @property (nonatomic, strong) TTColorView *tintView;
 
 @end
@@ -25,8 +26,9 @@
     
     if (!self) return nil;
     
-    // start with the default tint color
+    // start with the default tint color and effect state
     self.titlebarTintColor = kTTWindowDefaultTitlebarTintColor;
+    self.titlebarEffectState = NSVisualEffectStateFollowsWindowActiveState;
     
     [self setupTitlebarTint];
     
@@ -57,6 +59,21 @@
     }
 }
 
+- (NSVisualEffectView *)applesTitlebarView
+{
+    for (NSView *view in [[self.contentView superview] subviews]) {
+        if ([view isKindOfClass:NSClassFromString(@"NSTitlebarContainerView")]) {
+            for (id titlebarView in view.subviews) {
+                if ([titlebarView isKindOfClass:NSClassFromString(@"NSTitlebarView")]) {
+                    return titlebarView;
+                }
+            }
+        }
+    }
+    
+    return nil;
+}
+
 - (void)setTitlebarTintColor:(NSColor *)titlebarTintColor
 {
     if (titlebarTintColor == _titlebarTintColor) return;
@@ -64,6 +81,13 @@
     _titlebarTintColor = titlebarTintColor;
     
     self.tintView.backgroundColor = _titlebarTintColor;
+}
+
+- (void)setTitlebarEffectState:(NSVisualEffectState)titlebarEffectState
+{
+    _titlebarEffectState = titlebarEffectState;
+    
+    self.applesTitlebarView.state = _titlebarEffectState;
 }
 
 @end

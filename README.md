@@ -6,7 +6,4 @@ A ```NSWindow``` subclass that allows you to set a custom tint color for the tit
 
 ![Screenshot 2](https://raw.github.com/insidegui/TTWindow/master/TTWindow2.png)
 
-## Gotchas
-
-- Yosemite only
-- The tint color only shows when the window is the key window
+**Important: Only works on OS X 10.10 and up**

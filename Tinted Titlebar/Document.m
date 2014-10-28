@@ -11,15 +11,28 @@
 
 @interface Document ()
 
+@property (readonly) TTWindow *specialWindow;
 @property (weak) IBOutlet NSColorWell *colorWell;
 
 @end
 
 @implementation Document
 
+- (TTWindow *)specialWindow
+{
+    return (TTWindow *)self.windowForSheet;
+}
+
 - (IBAction)colorWellAction:(id)sender {
-    TTWindow *tintedTitlebarWindow = (TTWindow *)self.windowForSheet;
-    tintedTitlebarWindow.titlebarTintColor = self.colorWell.color;
+    self.specialWindow.titlebarTintColor = self.colorWell.color;
+}
+
+- (IBAction)checkboxAction:(id)sender {
+    if ([sender state] == NSOnState) {
+        self.specialWindow.titlebarEffectState = NSVisualEffectStateActive;
+    } else {
+        self.specialWindow.titlebarEffectState = NSVisualEffectStateFollowsWindowActiveState;
+    }
 }
 
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController {

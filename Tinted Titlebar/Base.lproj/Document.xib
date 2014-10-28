@@ -16,15 +16,15 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="133" y="235" width="507" height="413"/>
+            <rect key="contentRect" x="133" y="235" width="520" height="386"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1280" height="777"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
-                <rect key="frame" x="0.0" y="0.0" width="507" height="413"/>
+                <rect key="frame" x="0.0" y="0.0" width="520" height="386"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <colorWell translatesAutoresizingMaskIntoConstraints="NO" id="of9-WJ-pg3">
-                        <rect key="frame" x="203" y="180" width="101" height="53"/>
+                        <rect key="frame" x="210" y="167" width="101" height="53"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="101" id="K9g-Tq-CfD"/>
                             <constraint firstAttribute="height" constant="53" id="zj2-PQ-2m0"/>
@@ -34,15 +34,28 @@
                             <action selector="colorWellAction:" target="-2" id="qfk-Pe-BeM"/>
                         </connections>
                     </colorWell>
+                    <button translatesAutoresizingMaskIntoConstraints="NO" id="zae-kN-vxU">
+                        <rect key="frame" x="169" y="143" width="182" height="18"/>
+                        <buttonCell key="cell" type="check" title="Show tint when not active" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hco-YP-cEb">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="checkboxAction:" target="-2" id="bx2-Gw-VmO"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="centerX" secondItem="of9-WJ-pg3" secondAttribute="centerX" id="7yL-Wq-8tG"/>
+                    <constraint firstItem="zae-kN-vxU" firstAttribute="top" secondItem="of9-WJ-pg3" secondAttribute="bottom" constant="8" id="O8x-fO-Hgh"/>
+                    <constraint firstAttribute="centerX" secondItem="zae-kN-vxU" secondAttribute="centerX" constant="0.5" id="mhw-Ax-OVl"/>
                     <constraint firstAttribute="centerY" secondItem="of9-WJ-pg3" secondAttribute="centerY" id="mzJ-pD-kyz"/>
                 </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-x8E"/>
             </connections>
+            <point key="canvasLocation" x="347" y="299"/>
         </window>
     </objects>
 </document>
